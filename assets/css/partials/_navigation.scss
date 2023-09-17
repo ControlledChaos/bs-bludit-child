@@ -1,0 +1,178 @@
+///
+/// Navigation styles
+///
+
+.nav-list {
+	list-style: var( --bsb-nav-list--style, none );
+	margin: var( --bsb-nav-list--margin, 0 );
+	padding: var( --bsb-nav-list--padding, 0 );
+}
+
+.site-navigation {
+	max-width: var( --bsb-site-nav--max-width );
+
+	ul {
+		margin: var( --bsb-site-nav--list--margin, 0 );
+		display: var( --bsb-site-nav--list--display, flex );
+		gap: var( --bsb-site-nav--list--gap, 0.25em 1em );
+		justify-content: var( --bsb-site-nav--list--justify-content, flex-end );
+		flex-wrap: var( --bsb-site-nav--list--flex-wrap, wrap );
+
+		@media screen and ( max-width: $break_tablet ) {
+			justify-content: var( --bsb-site-nav--list--justify-content--tablet, center );
+		}
+
+		li {
+			position: relative;
+			margin: var( --bsb-site-nav--item--margin, 0 );
+			line-height: 1.2;
+			color: var( --bsb-site-nav--list--text-color, inherit );
+
+			a {
+				text-decoration: var( --bsb-site-nav--item-link--text-decoration, none );
+			}
+
+			ul {
+				z-index: 1000;
+				display: block;
+				position: absolute;
+				top: calc( 100% );
+				right: -9999em;
+				width: 160px;
+				transform: translateY( 0 );
+				opacity: 0;
+				transition: transform 0.25s, opacity 0.25s;
+				background-color: var( --bsb-site-nav--sub-list--bg-color, #333333 );
+				box-shadow: var( --bsb-site-nav--sub-list--box-shadow, 0px 0px 0px 2px rgba( $color: black, $alpha: 0.825 ) );
+
+				&:before {
+					content: '';
+					display: block;
+					position: absolute;
+					top: -1rem;
+					left: 0;
+					width: 100%;
+					height: 1rem;
+				}
+
+				&:after {
+					content: '';
+					display: block;
+					position: absolute;
+
+					/// Top: pull up (-) height of :after and
+					/// ul > ul box shadow spread.
+					top: calc( -1rem - 2px );
+					right: 1rem;
+					width: 1rem;
+					height: 1rem;
+					border: solid 0.5rem transparent;
+
+					// Creates the triangle.
+					border-bottom-color: #333333;
+
+					@media screen and ( max-width: $break_tablet ) {
+						right: calc( 50% - 0.5rem );
+					}
+				}
+
+				li {
+					margin: var( --bsb-site-nav--sub-item--margin, 0 );
+					text-align: center;
+					color: var( --bsb-site-nav--sub-list--text-color, #ffffff );
+
+					a {
+						display: block;
+						padding: 0.5em 1em;
+						color: inherit;
+
+						&:hover,
+						&:focus {
+							background-color: #555555;
+							color: var( --bsb-site-nav--sub-list--action--text-color, #ffffff );
+						}
+					}
+				}
+			}
+
+			&:hover {
+				ul {
+					right: 0;
+
+					// Move down the height of `:before` pseudoelement.
+					transform: translateY( 1rem );
+					opacity: 1;
+
+					@media screen and ( max-width: $break_tablet ) {
+						right: auto;
+						left: calc( -80px + 50% );
+					}
+				}
+			}
+		}
+	}
+}
+
+.template-full-cover {
+	.site-navigation {
+		ul {
+			li {
+				color: var( --bsb-site-nav--list--text-color, $white );
+
+				a {
+					color: var( --bsb-site-nav--list--text-color, $white );
+
+					&:hover,
+					&:focus {
+						color: var( --bsb-site-title--cover--link--action--text-color, $white );
+					}
+				}
+			}
+		}
+	}
+}
+
+.page-navigation {
+	width: var( --bsb-page-nav--width, 100% );
+	margin: var( --bsb-page-nav--margin, 2rem 0 0 0 );
+
+	.pagination-list {
+		width: var( --bsb-pagination-list--width, 100% );
+		display: var( --bsb-pagination-list--display, flex );
+		gap: var( --bsb-pagination-list--gap, 0 0.5em );
+		justify-content: center;
+
+		&.pagination-prev-next {
+			justify-content: var( --bsb-pagination-list--prev-next--justify-content, space-between );
+		}
+
+		a {
+			display: inline-block;
+			padding: 0 0.5em;
+			text-decoration: var( --bsb-pagination-list--link--text-decoration, none );
+			font-weight: var( --bsb-pagination-list--link--font-weight, inherit );
+			border: var( --bsb-pagination-list--link--border, solid 1px transparent );
+
+			&:hover,
+			&:focus {
+				border: var( --bsb-pagination-list--link--active--border, solid 1px $light_gray );
+			}
+
+			&.page-active {
+				font-weight: var( --bsb-pagination-list--link--active--font-weight, 600 );
+				border: var( --bsb-pagination-list--link--active--border, solid 1px $light_gray );
+			}
+
+			.page-icon {
+				display: inline-block;
+				vertical-align: middle;
+				line-height: 1;
+
+				svg {
+					height: 1em;
+					fill: currentColor;
+				}
+			}
+		}
+	}
+}

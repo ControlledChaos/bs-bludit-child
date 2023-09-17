@@ -1,0 +1,222 @@
+///
+/// Content styles
+///
+
+body {
+	&:not( .template-no-sidebar ) {
+		.content-wrapper {
+			display: flex;
+			gap: 2rem;
+
+			@media screen and ( max-width: $break_tablet ) {
+				flex-direction: column;
+			}
+		}
+	}
+
+	&.template-sidebar-bottom {
+		.content-wrapper {
+			flex-direction: column;
+		}
+	}
+}
+
+.content-wrapper {
+	width: 100%;
+	padding: var( --bsb-content-wrap--padding );
+}
+
+.page-main {
+	width: 100%;
+	padding: var( --bsb-page-main--padding );
+}
+
+.home .blog-view {
+	padding: 2rem 2rem 0 2rem;
+}
+
+.blog-wrap {
+	display: flex;
+	gap: 2rem;
+
+	&:not( :first-of-type ) {
+		margin-top: 2rem;
+	}
+
+	.page-cover-blog {
+		width: 180px;
+		min-width: 180px;
+	}
+
+	h2 {
+		margin: 0;
+	}
+}
+
+body:not( .home ) {
+	.blog-wrap {
+		margin-top: 1rem;
+	}
+}
+
+.page-header {
+	h1,
+	h2 {
+		font-size: var( --bsb-page-header--heading--font-size );
+	}
+}
+
+.page-subtitle {
+	font-size: var( --bsb-page-subtitle--font-size, 1.5em );
+}
+
+.page-info {
+	font-size: var( --bsb-page-info--font-size, 0.85em );
+
+	.page-info-entry {
+		&:not( :last-of-type ) {
+			margin: var( --bsb-page-info-entry--margin, 0 0.5em 0 0 );
+		}
+	}
+}
+
+.page-description {
+	margin: var( --bsb-page-description--margin, 0 );
+
+	&.page-description-single {
+		margin: var( --bsb-page-description-single--margin, 0 );
+		font-size: var( --bsb-page-description-single--font-size, 1.25rem );
+	}
+}
+
+.page-content {
+
+	img[style="float: left;"],
+	img[style="float: left"],
+	img[style="float:left;"],
+	img[style="float:left"] {
+		margin: var( --bsb-page-content--img--float-left--margin, 0 1em 1em 0 );
+	}
+
+	img[style="float: right;"],
+	img[style="float: right"],
+	img[style="float:right;"],
+	img[style="float:right"] {
+		margin: var( --bsb-page-content--img--float-right--margin, 0 0 1em 1em );
+	}
+}
+
+.page-cover:not( .page-cover-blog ) {
+	overflow: hidden;
+	margin: var( --bsb-page-cover-single--margin, 1rem auto 0 auto );
+	max-width: 2048px;
+
+	img {
+		display: block;
+		width: 100%;
+		max-height: 320px;
+		object-fit: cover;
+		object-position: center center;
+	}
+}
+
+// No posts template.
+.no-posts-found {
+	display: var( --bsb-no-posts--display, flex );
+	flex-direction: var( --bsb-no-posts--flex-direction, column );
+	align-items: var( --bsb-no-posts--align-items, center );
+	justify-content: var( --bsb-no-posts--justify-content, center );
+	min-height: var( --bsb-no-posts--min-height, 50vh );
+
+	h1 {
+		font-size: var( --bsb-no-posts--heading--font-size, 2.5em );
+	}
+}
+
+.site-article {
+
+	.page-info-author {
+		font-weight: var( --bsb-page-info-author--font-weight, 600 );
+	}
+
+	.page-info-date {
+		font-weight: var( --bsb-page-info-date--font-weight, 600 );
+	}
+
+	.tags-list {
+		margin: var( --bsb-article--tags-list--margin, 0.75em 0 0 0 );
+		gap: var( --bsb-article--tags-list--display, 0 0.1875em );
+
+		a {
+			display: var( --bsb-article--tags-list--display, inline-block );
+			padding: var( --bsb-article--tags-list--padding, 0.175em 0.325em 0.325em 0.325em );
+			line-height: var( --bsb-article--tags-list--line-height, 1 );
+			font-size: var( --bsb-article--tags-list--font-size );
+			font-weight: var( --bsb-article--tags-list--font-weight );
+			text-decoration: var( --bsb-article--tags-list--text-decoration );
+			background-color: var( --bsb-article--tags-list--bg-color );
+			color: var( --bsb-article--tags-list--text-color );
+
+			&:hover,
+			&:focus {
+				background-color: var( --bsb-article--tags-list--action--bg-color );
+				color: var( --bsb-article--tags-list--action--text-color );
+			}
+		}
+	}
+}
+
+.template-full-cover  {
+	.page-content {
+		margin: 4rem 0 0 0;
+	}
+}
+
+// Blog transition demo.
+.blog {
+	article {
+		opacity: 0;
+		transition: opacity .25s;
+		transition-delay: .25s;
+	}
+
+	&.page-loaded {
+		article {
+			opacity: 1;
+		}
+	}
+}
+@for $blog_article from 1 through 12 {
+	.blog {
+		&.page-loaded {
+			article {
+				&:nth-of-type( #{$blog_article} ) {
+					transition-delay: ( $blog_article + 0 ) * .15s;
+				}
+			}
+		}
+	}
+}
+
+// Theme icons.
+.theme-icon {
+	display: inline-block;
+	vertical-align: baseline;
+	line-height: 1;
+
+	svg {
+		fill: currentColor;
+		height: 1em;
+	}
+}
+
+// Sticky post icon.
+.sticky-icon {
+	&.sticky-icon-heading {
+
+		svg {
+			height: 0.725em;
+			transform: translateY( 0.05em );
+		}
+	}
+}
